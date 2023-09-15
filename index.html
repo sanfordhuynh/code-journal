@@ -41,9 +41,9 @@
         </div>
 
         <div class="column-full column-half">
-          <form method="post">
-            <label for="title"> Title</label><br />
-            <input type="text" id="title" name="titleName" required /><br />
+          <form id="form" method="post">
+            <label for="titleName"> Title</label><br />
+            <input type="text" id="titleName" name="titleName" required /><br />
 
             <label for="photoURL"> Photo URL</label><br />
             <input type="text" id="photoURL" name="photoURL" required />
@@ -58,6 +58,8 @@
           <label for="notes">Notes </label><br />
           <textarea name="notes" id="notes"></textarea>
         </div>
+
+        <button type="button">Save</button>
       </div>
 
       <div data-view="entries" class="hidden"></div>
