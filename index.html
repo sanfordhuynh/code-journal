@@ -23,31 +23,41 @@
         </div>
       </div>
     </header>
+
     <main class="container">
-      <div data-view="entry-form">
-        <h1>New Entry</h1>
-        <img
-          src="/images/placeholder-image-square.jpg"
-          alt="placeholder-square" />
-        <div data-view="entry-form">
+      <div class="row">
+        <div class="column-full">
+          <div data-view="entry-form">
+            <h1>New Entry</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column-full column-half">
+          <img
+            src="/images/placeholder-image-square.jpg"
+            alt="placeholder-square" />
+        </div>
+
+        <div class="column-full column-half">
           <form method="post">
-            <div>
-              <label for="title"> Title</label><br />
-              <input type="text" id="title" name="titleName" />
-            </div>
+            <label for="title"> Title</label><br />
+            <input type="text" id="title" name="titleName" /><br />
 
-            <div>
-              <label for="photoURL"> Photo URL</label><br />
-              <input type="text" id="photoURL" name="photoURL" />
-            </div>
-
-            <div>
-              <label for="notes">Notes </label><br />
-              <textarea name="notes" id="notes"></textarea>
-            </div>
+            <label for="photoURL"> Photo URL</label><br />
+            <input type="text" id="photoURL" name="photoURL" />
           </form>
         </div>
       </div>
+
+      <div class="row">
+        <div class="column-full">
+          <label for="notes">Notes </label><br />
+          <textarea name="notes" id="notes"></textarea>
+        </div>
+      </div>
+
       <div data-view="entries" class="hidden"></div>
     </main>
     <script src="js/data.js"></script>
