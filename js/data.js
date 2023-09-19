@@ -11,3 +11,7 @@ let data = {
   editing: null,
   nextEntryId: 1,
 };
+
+if (localStorage !== null) {
+  data = JSON.parse(localStorage);
+}
