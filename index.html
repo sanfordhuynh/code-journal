@@ -15,10 +15,11 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
     <header>
       <div class="container">
-        <div class="row column-full">
+        <div class="row column-full journal-header">
           <h1>Code Journal</h1>
         </div>
       </div>
@@ -33,34 +34,38 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="column-full column-half">
-          <img
-            src="/images/placeholder-image-square.jpg"
-            alt="placeholder-square" />
-        </div>
+      <form id="form" method="post">
+        <div class="row">
+          <div class="column-full column-half">
+            <img
+              src="/images/placeholder-image-square.jpg"
+              alt="placeholder-square" />
+          </div>
 
-        <div class="column-full column-half">
-          <form id="form" method="post">
+          <div class="column-full column-half">
             <label for="titleName"> Title</label><br />
             <input type="text" id="titleName" name="titleName" required /><br />
 
             <label for="photoURL"> Photo URL</label><br />
-            <input type="text" id="photoURL" name="photoURL" required />
-          </form>
+            <input
+              type="url"
+              id="photoURL"
+              name="photoURL"
+              pattern="https://.*"
+              required />
 
-          <img id="photoPreview" src="" alt="Photo Preview" hidden />
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="column-full">
-          <label for="notes">Notes </label><br />
-          <textarea name="notes" id="notes"></textarea>
+            <img id="photoPreview" src="" alt="Photo Preview" hidden />
+          </div>
         </div>
 
-        <button type="button">Save</button>
-      </div>
+        <div class="row">
+          <div class="column-full">
+            <label for="notes">Notes </label><br />
+            <textarea name="notes" id="notes" required></textarea>
+          </div>
+          <button type="submit">Save</button>
+        </div>
+      </form>
 
       <div data-view="entries" class="hidden"></div>
     </main>
