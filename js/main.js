@@ -1,5 +1,5 @@
 const photoURLInput = document.getElementById('photoURL');
-const photoPreview = document.getElementById('photoPreview');
+const imagePreview = document.getElementById('imagePreview');
 
 let nextEntryId = parseInt(localStorage.getItem('nextEntryId') || 1);
 
@@ -7,7 +7,9 @@ let nextEntryId = parseInt(localStorage.getItem('nextEntryId') || 1);
 const placeholderImageURL = '/images/placeholder-image-square.jpg';
 
 photoURLInput.addEventListener('input', function () {
-  photoPreview.src = photoURLInput.value;
+  const url = photoURLInput.value;
+
+  imagePreview.src = url;
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const jsonData = JSON.stringify(data);
     localStorage.setItem('javascript-local-storage', jsonData);
 
-    photoPreview.src = placeholderImageURL;
+    imagePreview.src = placeholderImageURL;
 
     form.reset();
 

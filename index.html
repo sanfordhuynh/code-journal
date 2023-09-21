@@ -38,8 +38,9 @@
         <div class="row">
           <div class="column-full column-half">
             <img
+              id="imagePreview"
               src="/images/placeholder-image-square.jpg"
-              alt="placeholder-square" />
+              alt="Image Preview" />
           </div>
 
           <div class="column-full column-half">
@@ -49,14 +50,7 @@
 
             <label for="photoURL"><b>Photo URL</b></label
             ><br />
-            <input
-              type="url"
-              id="photoURL"
-              name="photoURL"
-              pattern="https://.*"
-              required />
-
-            <img id="photoPreview" src="" alt="Photo Preview" hidden />
+            <input type="url" id="photoURL" name="photoURL" required />
           </div>
         </div>
 
