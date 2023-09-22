@@ -24,6 +24,16 @@ header {
   color: white;
 }
 
+ul,
+li {
+  list-style-type: none;
+  padding: 0;
+}
+
+.column-full .entries {
+  display: none;
+}
+
 .submit-button {
   background-color: #4c2676;
   color: white;
@@ -65,5 +75,22 @@ header {
     justify-content: flex-end;
     align-items: center;
     width: 99%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container .row {
+    width: 100%;
+  }
+
+  .entries {
+    display: none;
+  }
+
+  .column-full .entries {
+    display: block;
   }
 }

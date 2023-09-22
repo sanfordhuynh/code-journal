@@ -44,12 +44,35 @@
           </div>
 
           <div class="column-full column-half">
-            <label for="titleName"><b>Title</b></label
-            ><br />
+            <div data-view="entries" class="entries">
+              <ul>
+                <li class="journal-entry">
+                  <div class="entry-content">
+                    <h3 class="entry-title">Image 1</h3>
+                    <p class="entry-notes">Sample Image1 desc.</p>
+                  </div>
+                </li>
+                <li class="journal-entry">
+                  <div class="entry-content">
+                    <h3 class="entry-title">Image 2</h3>
+                    <p class="entry-notes">Sample Image2 desc.</p>
+                  </div>
+                </li>
+                <li class="journal-entry">
+                  <div class="entry-content">
+                    <h3 class="entry-title">Image 3</h3>
+                    <p class="entry-notes">Sample Image3 desc.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <label for="titleName"><b>Title</b></label>
+            <br />
             <input type="text" id="titleName" name="titleName" required /><br />
 
-            <label for="photoURL"><b>Photo URL</b></label
-            ><br />
+            <label for="photoURL"><b>Photo URL</b></label>
+            <br />
             <input type="url" id="photoURL" name="photoURL" required />
           </div>
         </div>
@@ -68,7 +91,7 @@
         </div>
       </form>
 
-      <div data-view="entries" class="hidden">
+      <div data-view="entries" class="entries">
         <ul>
           <li class="journal-entry">
             <div class="entry-content">
