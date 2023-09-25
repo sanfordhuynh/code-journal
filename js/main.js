@@ -71,9 +71,18 @@ function renderEntry(entry) {
 
 document.addEventListener('DOMContentLoaded', function () {
   const entriesList = document.querySelector('.entries ul');
+  const noEntriesMessage = document.querySelector('.no-entries');
 
   data.entries.forEach(function (entry) {
     const entryElement = renderEntry(entry);
     entriesList.appendChild(entryElement);
   });
+
+  if (data.entries.length === 0) {
+    noEntriesMessage.style.display = 'block';
+    entriesList.style.display = 'none';
+  } else {
+    noEntriesMessage.style.display = 'none';
+    entriesList.style.display = 'block';
+  }
 });
