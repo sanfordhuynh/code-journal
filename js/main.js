@@ -45,3 +45,35 @@ document.addEventListener('DOMContentLoaded', function () {
     nextEntryId++;
   });
 });
+
+function renderEntry(entry) {
+  const listItem = document.createElement('li');
+  listItem.classList.add('journal-entry');
+
+  const entryContent = document.createElement('div');
+  entryContent.classList.add('entry-content');
+
+  const entryTitle = document.createElement('h3');
+  entryTitle.classList.add('entry-title');
+  entryTitle.textContent = entry.title;
+
+  const entryNotes = document.createElement('p');
+  entryNotes.classList.add('entry-notes');
+  entryNotes.textContent = entry.notes;
+
+  entryContent.appendChild(entryTitle);
+  entryContent.appendChild(entryNotes);
+
+  listItem.appendChild(entryContent);
+
+  return listItem;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const entriesList = document.querySelector('.entries ul');
+
+  data.entries.forEach(function (entry) {
+    const entryElement = renderEntry(entry);
+    entriesList.appendChild(entryElement);
+  });
+});
