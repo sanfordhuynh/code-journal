@@ -14,6 +14,7 @@ photoURLInput.addEventListener('input', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('form');
+  const entriesList = document.querySelector('.entries ul');
 
   // initialize nextEntryId variable to keep track of the entryID starting at 1
 
@@ -34,6 +35,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add the new object to the beginning of the entries array
     data.entries.unshift(formData);
+
+    // Render a DOM tree for the newly submitted entry object using the renderEntry function.
+    const newEntry = renderEntry(formData);
+
+    // Prepends the new DOM tree to the unordered list.
+    entriesList.prepend(newEntry);
+
+    // Use viewSwap to show the "entries" view
+    viewSwap('entries');
 
     const jsonData = JSON.stringify(data);
     localStorage.setItem('javascript-local-storage', jsonData);
@@ -113,8 +123,14 @@ function viewSwap(viewName) {
 }
 
 const showEntriesLink = document.getElementById('showEntriesLink');
+const showEntryFormLink = document.getElementById('showEntryForm');
 
 showEntriesLink.addEventListener('click', function (event) {
   event.preventDefault();
   viewSwap('entries');
+});
+
+showEntryFormLink.addEventListener('click', function (event) {
+  event.preventDefault();
+  viewSwap('entry-form');
 });
