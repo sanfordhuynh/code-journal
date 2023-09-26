@@ -70,10 +70,23 @@ function renderEntry(entry) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const entriesList = document.querySelector('.entries ul');
-
   data.entries.forEach(function (entry) {
     const entryElement = renderEntry(entry);
+    const entriesList = document.querySelector('.entries ul');
     entriesList.appendChild(entryElement);
   });
+  toggleNoEntries();
 });
+
+function toggleNoEntries() {
+  const entriesList = document.querySelector('.entries ul');
+  const noEntriesMessage = document.querySelector('.no-entries-message');
+
+  if (data.entries.length === 0) {
+    noEntriesMessage.style.display = 'block';
+    entriesList.style.display = 'none';
+  } else {
+    noEntriesMessage.style.display = 'none';
+    entriesList.style.display = 'block';
+  }
+}
