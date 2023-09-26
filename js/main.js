@@ -90,3 +90,31 @@ function toggleNoEntries() {
     entriesList.style.display = 'block';
   }
 }
+
+// Create a new function named viewSwap with a single parameter representing the name
+// of the view to show (the value will be either ”entries” or ”entry-form”).
+// This function should show the view whose name was provided as an argument,
+// as well as assign the string argument to the data.view property
+// so that the currently shown view is tracked in the data model for the application.
+
+function viewSwap(viewName) {
+  const views = document.querySelector('[data-view]');
+
+  data.view = viewName;
+
+  views.forEach((view) => {
+    view.classList.add('hidden');
+  });
+
+  const viewToShow = document.querySelector(`[data-view="${viewName}"]`);
+  if (viewToShow) {
+    viewToShow.classList.remove('hidden');
+  }
+}
+
+const showEntriesLink = document.getElementById('showEntriesLink');
+
+showEntriesLink.addEventListener('click', function (event) {
+  event.preventDefault();
+  viewSwap('entries');
+});
