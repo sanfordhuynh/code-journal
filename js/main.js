@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('form');
   const entriesList = document.querySelector('.entries ul');
 
+  const lastView = 'entry-form';
+
+  viewSwap(lastView);
+
+  // Conditionally use the toggleNoEntries function based on local storage data
+  toggleNoEntries();
+
   // initialize nextEntryId variable to keep track of the entryID starting at 1
 
   form.addEventListener('submit', function (event) {
@@ -44,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Use viewSwap to show the "entries" view
     viewSwap('entries');
+
+    // conditionally uses the toggleNoEntries function as needed to remove the no entries text.
+    toggleNoEntries();
 
     const jsonData = JSON.stringify(data);
     localStorage.setItem('javascript-local-storage', jsonData);
@@ -90,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function toggleNoEntries() {
   const entriesList = document.querySelector('.entries ul');
-  const noEntriesMessage = document.querySelector('.no-entries-message');
+  const noEntriesMessage = document.querySelector('.no-entries');
 
   if (data.entries.length === 0) {
     noEntriesMessage.style.display = 'block';
@@ -108,7 +118,7 @@ function toggleNoEntries() {
 // so that the currently shown view is tracked in the data model for the application.
 
 function viewSwap(viewName) {
-  const views = document.querySelector('[data-view]');
+  const views = document.querySelectorAll('[data-view]');
 
   data.view = viewName;
 
