@@ -15,12 +15,59 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
     <header>
-      <div class="container"></div>
+      <div class="container journal-container">
+        <div class="row column-full">
+          <h1>Code Journal</h1>
+        </div>
+      </div>
     </header>
+
     <main class="container">
-      <div data-view="entry-form"></div>
+      <div class="row">
+        <div class="column-full">
+          <div data-view="entry-form">
+            <h1>New Entry</h1>
+          </div>
+        </div>
+      </div>
+
+      <form id="form" method="post">
+        <div class="row">
+          <div class="column-full column-half">
+            <img
+              id="imagePreview"
+              src="/images/placeholder-image-square.jpg"
+              alt="Image Preview" />
+          </div>
+
+          <div class="column-full column-half">
+            <label for="titleName"><b>Title</b></label
+            ><br />
+            <input type="text" id="titleName" name="titleName" required /><br />
+
+            <label for="photoURL"><b>Photo URL</b></label
+            ><br />
+            <input type="url" id="photoURL" name="photoURL" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column-full">
+            <label for="notes"><b>Notes</b> </label><br />
+            <textarea name="notes" id="notes" required></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="submit-container">
+            <button class="submit-button" type="submit">Save</button>
+          </div>
+        </div>
+      </form>
+
       <div data-view="entries" class="hidden"></div>
     </main>
     <script src="js/data.js"></script>
