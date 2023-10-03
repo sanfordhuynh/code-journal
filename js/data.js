@@ -1,5 +1,4 @@
 /* exported data */
-
 let data = {
   view: 'entry-form',
   entries: [],
