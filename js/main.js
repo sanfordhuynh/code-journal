@@ -1,80 +1,80 @@
+import { getData, saveData } from './data.js';
+
 let nextEntryId = parseInt(localStorage.getItem('nextEntryId') || 1);
+const data = getData();
 
 // create the placeholder imageURL so that it can reset back to this
 const placeholderImageURL = '/images/placeholder-image-square.jpg';
 
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('form');
-  const entriesList = document.querySelector('.entries ul');
-  const photoURLInput = document.getElementById('photoURL');
-  const imagePreview = document.getElementById('imagePreview');
+const form = document.getElementById('form');
+const entriesList = document.querySelector('.entries ul');
+const photoURLInput = document.getElementById('photoURL');
+const imagePreview = document.getElementById('imagePreview');
 
-  photoURLInput.addEventListener('input', function () {
-    const url = photoURLInput.value;
+photoURLInput.addEventListener('input', function () {
+  const url = photoURLInput.value;
+  imagePreview.src = url;
+});
 
-    imagePreview.src = url;
-  });
-
+if (data.entries.length > 0) {
   data.entries.forEach(function (entry) {
     const entryElement = renderEntry(entry);
-
     entriesList.appendChild(entryElement);
   });
+}
 
-  const lastView = 'entry-form';
+const lastView = 'entry-form';
 
-  viewSwap(lastView);
+viewSwap(lastView);
 
-  // Conditionally use the toggleNoEntries function based on local storage data
-  if (data.entries.length === 0) {
-    toggleNoEntries(true);
-  } else {
+// Conditionally use the toggleNoEntries function based on local storage data
+if (data.entries.length === 0) {
+  toggleNoEntries(true);
+} else {
+  toggleNoEntries(false);
+}
+
+// initialize nextEntryId variable to keep track of the entryID starting at 1
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  // Get the form input values, then store it into an object value
+  const titleNameInput = document.getElementById('titleName').value;
+  const photoURLInputValue = document.getElementById('photoURL').value;
+  const notesInput = document.getElementById('notes').value;
+
+  const formData = {
+    entryId: nextEntryId,
+    title: titleNameInput,
+    photoURL: photoURLInputValue,
+    notes: notesInput,
+  };
+
+  // Add the new object to the beginning of the entries array
+  data.entries.unshift(formData);
+
+  // Render a DOM tree for the newly submitted entry object using the renderEntry function.
+  const newEntry = renderEntry(formData);
+
+  // Prepends the new DOM tree to the unordered list.
+  entriesList.prepend(newEntry);
+
+  // Use viewSwap to show the "entries" view
+  viewSwap('entries');
+
+  // conditionally uses the toggleNoEntries function as needed to remove the no entries text.
+  if (data.entries.length > 0) {
     toggleNoEntries(false);
+  } else {
+    toggleNoEntries(true);
   }
 
-  // initialize nextEntryId variable to keep track of the entryID starting at 1
+  imagePreview.src = placeholderImageURL;
+  form.reset();
+  nextEntryId++;
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    // Get the form input values, then store it into an object value
-    const titleNameInput = document.getElementById('titleName').value;
-    const photoURLInputValue = document.getElementById('photoURL').value;
-    const notesInput = document.getElementById('notes').value;
-
-    const formData = {
-      entryId: nextEntryId,
-      title: titleNameInput,
-      photoURL: photoURLInputValue,
-      notes: notesInput,
-    };
-
-    // Add the new object to the beginning of the entries array
-    data.entries.unshift(formData);
-
-    // Render a DOM tree for the newly submitted entry object using the renderEntry function.
-    const newEntry = renderEntry(formData);
-
-    // Prepends the new DOM tree to the unordered list.
-    entriesList.prepend(newEntry);
-
-    // Use viewSwap to show the "entries" view
-    viewSwap('entries');
-
-    // conditionally uses the toggleNoEntries function as needed to remove the no entries text.
-    if (data.entries.length > 0) {
-      toggleNoEntries(false);
-    } else {
-      toggleNoEntries(true);
-    }
-
-    imagePreview.src = placeholderImageURL;
-    form.reset();
-    nextEntryId++;
-
-    const jsonData = JSON.stringify(data);
-    localStorage.setItem('javascript-local-storage', jsonData);
-  });
+  saveData(data);
 });
 
 function renderEntry(entry) {

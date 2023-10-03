@@ -5,7 +5,7 @@
     "browser": true
   },
   "parserOptions": {
-    "sourceType": "script"
+    "sourceType": "module"
   },
   "extends": [
     "eslint:recommended",
