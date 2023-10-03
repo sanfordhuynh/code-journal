@@ -1,17 +1,18 @@
 /* exported data */
 
-const getData = () => {
-  const storedData = localStorage.getItem('javascript-local-storage');
-  if (storedData) {
-    return JSON.parse(storedData);
-  } else {
-    return { entries: [] };
-  }
+let data = {
+  view: 'entry-form',
+  entries: [],
+  editing: null,
+  nextEntryId: 1,
 };
 
-const saveData = (data) => {
-  const jsonData = JSON.stringify(data);
-  localStorage.setItem('javascript-local-storage', jsonData);
-};
+window.addEventListener('beforeunload', function (event) {
+  const dataJSON = JSON.stringify(data);
+  localStorage.setItem('code-journal-data', dataJSON);
+});
 
-export { getData, saveData };
+const localData = JSON.parse(localStorage.getItem('code-journal-data'));
+if (localData) {
+  data = localData;
+}

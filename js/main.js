@@ -1,11 +1,5 @@
-import { getData, saveData } from './data.js';
-
-let nextEntryId = parseInt(localStorage.getItem('nextEntryId') || 1);
-const data = getData();
-
-// create the placeholder imageURL so that it can reset back to this
 const placeholderImageURL = '/images/placeholder-image-square.jpg';
-
+let nextEntryId = data.nextEntryId;
 const form = document.getElementById('form');
 const entriesList = document.querySelector('.entries ul');
 const photoURLInput = document.getElementById('photoURL');
@@ -24,17 +18,13 @@ if (data.entries.length > 0) {
 }
 
 const lastView = 'entry-form';
-
 viewSwap(lastView);
 
-// Conditionally use the toggleNoEntries function based on local storage data
 if (data.entries.length === 0) {
   toggleNoEntries(true);
 } else {
   toggleNoEntries(false);
 }
-
-// initialize nextEntryId variable to keep track of the entryID starting at 1
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -51,19 +41,11 @@ form.addEventListener('submit', function (event) {
     notes: notesInput,
   };
 
-  // Add the new object to the beginning of the entries array
   data.entries.unshift(formData);
-
-  // Render a DOM tree for the newly submitted entry object using the renderEntry function.
   const newEntry = renderEntry(formData);
-
-  // Prepends the new DOM tree to the unordered list.
   entriesList.prepend(newEntry);
-
-  // Use viewSwap to show the "entries" view
   viewSwap('entries');
 
-  // conditionally uses the toggleNoEntries function as needed to remove the no entries text.
   if (data.entries.length > 0) {
     toggleNoEntries(false);
   } else {
@@ -73,8 +55,6 @@ form.addEventListener('submit', function (event) {
   imagePreview.src = placeholderImageURL;
   form.reset();
   nextEntryId++;
-
-  saveData(data);
 });
 
 function renderEntry(entry) {
@@ -123,12 +103,6 @@ function toggleNoEntries(show) {
     noEntriesMessage.style.display = 'none';
   }
 }
-
-// Create a new function named viewSwap with a single parameter representing the name
-// of the view to show (the value will be either ”entries” or ”entry-form”).
-// This function should show the view whose name was provided as an argument,
-// as well as assign the string argument to the data.view property
-// so that the currently shown view is tracked in the data model for the application.
 
 function viewSwap(viewName) {
   const views = document.querySelectorAll('[data-view]');
