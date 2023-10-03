@@ -24,6 +24,21 @@ header {
   color: white;
 }
 
+ul,
+li {
+  list-style-type: none;
+  padding: 0;
+}
+
+#show-entries-link {
+  text-decoration: none;
+  color: white;
+  margin-left: 5%;
+  font-size: larger;
+  display: flex;
+  align-items: center;
+}
+
 .submit-button {
   background-color: #4c2676;
   color: white;
@@ -32,11 +47,41 @@ header {
   padding: 0 10px;
 }
 
+.new-button {
+  background-color: #4c2676;
+  color: white;
+  border-radius: 15%;
+  padding: 10px;
+  text-decoration: none;
+}
+
 .submit-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 70%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-image {
+  width: 60%;
+  height: auto;
+}
+
+.entry-text-container {
+  width: 50%;
 }
 
 @media screen and (min-width: 768px) {
@@ -53,17 +98,69 @@ header {
     height: 150px;
   }
 
-  .submit-button {
-    background-color: #4c2676;
-    color: white;
-    height: 30px;
-    border-radius: 15%;
-  }
-
   .submit-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 99%;
+    width: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    position: relative;
+  }
+
+  .container .row {
+    width: 100%;
+  }
+
+  .column-half {
+    display: flex;
+    width: 100%;
+  }
+
+  .input-container {
+    margin-left: 10px;
+  }
+
+  .image-container,
+  .input-container {
+    width: 100%;
+  }
+
+  .entries-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .button-container {
+    position: absolute;
+    top: 0;
+    left: 90%;
+  }
+
+  .entry-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .entry-content {
+    display: flex;
+    align-items: center;
+    text-indent: 10px;
+  }
+
+  .entry-image-container {
+    width: 50%;
+    margin-right: 10px;
+  }
+
+  .hidden {
+    display: none;
   }
 }

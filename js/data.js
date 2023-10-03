@@ -6,17 +6,12 @@ let data = {
   nextEntryId: 1,
 };
 
-window.addEventListener('beforeunload', (event) => {
-  const jsonData = JSON.stringify(data);
-  localStorage.setItem('javascript-local-storage', jsonData);
+window.addEventListener('beforeunload', function (event) {
+  const dataJSON = JSON.stringify(data);
+  localStorage.setItem('code-journal-data', dataJSON);
 });
 
-const localStorageData = localStorage.getItem('javascript-local-storage');
-
-if (localStorageData !== null) {
-  const parsedData = JSON.parse(localStorageData);
-
-  if (parsedData) {
-    data = parsedData;
-  }
+const localData = JSON.parse(localStorage.getItem('code-journal-data'));
+if (localData) {
+  data = localData;
 }
