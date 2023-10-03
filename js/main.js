@@ -1,27 +1,36 @@
-const photoURLInput = document.getElementById('photoURL');
-const imagePreview = document.getElementById('imagePreview');
-
 let nextEntryId = parseInt(localStorage.getItem('nextEntryId') || 1);
 
 // create the placeholder imageURL so that it can reset back to this
 const placeholderImageURL = '/images/placeholder-image-square.jpg';
 
-photoURLInput.addEventListener('input', function () {
-  const url = photoURLInput.value;
-
-  imagePreview.src = url;
-});
-
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('form');
   const entriesList = document.querySelector('.entries ul');
+  const photoURLInput = document.getElementById('photoURL');
+  const imagePreview = document.getElementById('imagePreview');
+
+  photoURLInput.addEventListener('input', function () {
+    const url = photoURLInput.value;
+
+    imagePreview.src = url;
+  });
+
+  data.entries.forEach(function (entry) {
+    const entryElement = renderEntry(entry);
+
+    entriesList.appendChild(entryElement);
+  });
 
   const lastView = 'entry-form';
 
   viewSwap(lastView);
 
   // Conditionally use the toggleNoEntries function based on local storage data
-  toggleNoEntries();
+  if (data.entries.length === 0) {
+    toggleNoEntries(true);
+  } else {
+    toggleNoEntries(false);
+  }
 
   // initialize nextEntryId variable to keep track of the entryID starting at 1
 
@@ -53,16 +62,18 @@ document.addEventListener('DOMContentLoaded', function () {
     viewSwap('entries');
 
     // conditionally uses the toggleNoEntries function as needed to remove the no entries text.
-    toggleNoEntries();
+    if (data.entries.length > 0) {
+      toggleNoEntries(false);
+    } else {
+      toggleNoEntries(true);
+    }
+
+    imagePreview.src = placeholderImageURL;
+    form.reset();
+    nextEntryId++;
 
     const jsonData = JSON.stringify(data);
     localStorage.setItem('javascript-local-storage', jsonData);
-
-    imagePreview.src = placeholderImageURL;
-
-    form.reset();
-
-    nextEntryId++;
   });
 });
 
@@ -73,6 +84,16 @@ function renderEntry(entry) {
   const entryContent = document.createElement('div');
   entryContent.classList.add('entry-content');
 
+  const entryImageContainer = document.createElement('div');
+  entryImageContainer.classList.add('entry-image-container');
+  const entryImage = document.createElement('img');
+  entryImage.classList.add('entry-image');
+  entryImage.src = entry.photoURL;
+  entryImageContainer.appendChild(entryImage);
+
+  const entryTextContainer = document.createElement('div');
+  entryTextContainer.classList.add('entry-text-container');
+
   const entryTitle = document.createElement('h3');
   entryTitle.classList.add('entry-title');
   entryTitle.textContent = entry.title;
@@ -81,6 +102,10 @@ function renderEntry(entry) {
   entryNotes.classList.add('entry-notes');
   entryNotes.textContent = entry.notes;
 
+  entryTextContainer.appendChild(entryTitle);
+  entryTextContainer.appendChild(entryNotes);
+
+  entryContent.appendChild(entryImage);
   entryContent.appendChild(entryTitle);
   entryContent.appendChild(entryNotes);
 
@@ -89,25 +114,13 @@ function renderEntry(entry) {
   return listItem;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  data.entries.forEach(function (entry) {
-    const entryElement = renderEntry(entry);
-    const entriesList = document.querySelector('.entries ul');
-    entriesList.appendChild(entryElement);
-  });
-  toggleNoEntries();
-});
-
-function toggleNoEntries() {
-  const entriesList = document.querySelector('.entries ul');
+function toggleNoEntries(show) {
   const noEntriesMessage = document.querySelector('.no-entries');
 
-  if (data.entries.length === 0) {
+  if (show) {
     noEntriesMessage.style.display = 'block';
-    entriesList.style.display = 'none';
   } else {
     noEntriesMessage.style.display = 'none';
-    entriesList.style.display = 'block';
   }
 }
 
@@ -123,17 +136,16 @@ function viewSwap(viewName) {
   data.view = viewName;
 
   views.forEach((view) => {
-    view.classList.add('hidden');
+    if (view.getAttribute('data-view') === viewName) {
+      view.classList.remove('hidden');
+    } else {
+      view.classList.add('hidden');
+    }
   });
-
-  const viewToShow = document.querySelector(`[data-view="${viewName}"]`);
-  if (viewToShow) {
-    viewToShow.classList.remove('hidden');
-  }
 }
 
-const showEntriesLink = document.getElementById('showEntriesLink');
-const showEntryFormLink = document.getElementById('showEntryForm');
+const showEntriesLink = document.getElementById('show-entries-link');
+const showEntryFormLink = document.getElementById('show-entry-form');
 
 showEntriesLink.addEventListener('click', function (event) {
   event.preventDefault();

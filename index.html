@@ -21,6 +21,7 @@
       <div class="container journal-container">
         <div class="row column-full">
           <h1>Code Journal</h1>
+          <a id="show-entries-link" href="#">Entries</a>
         </div>
       </div>
     </header>
@@ -28,102 +29,64 @@
     <main class="container">
       <div class="row">
         <div class="column-full">
-          <div data-view="entry-form">
+          <div data-view="entry-form" class="hidden">
             <h1>New Entry</h1>
+
+            <form id="form" method="post">
+              <div class="column-full column-half">
+                <div class="image-container">
+                  <img
+                    id="imagePreview"
+                    src="/images/placeholder-image-square.jpg"
+                    alt="Image Preview" />
+                </div>
+
+                <!-- <br> -->
+                <div class="input-container">
+                  <label for="titleName"><b>Title</b></label>
+                  <br />
+                  <input
+                    type="text"
+                    id="titleName"
+                    name="titleName"
+                    required /><br />
+
+                  <label for="photoURL"><b>Photo URL</b></label>
+                  <br />
+                  <input type="url" id="photoURL" name="photoURL" required />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column-full">
+                  <label for="notes"><b>Notes</b> </label><br />
+                  <textarea name="notes" id="notes" required></textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="submit-container">
+                  <button class="submit-button" type="submit">Save</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
 
-      <form id="form" method="post">
-        <div class="row">
-          <div class="column-full column-half">
-            <img
-              id="imagePreview"
-              src="/images/placeholder-image-square.jpg"
-              alt="Image Preview" />
-          </div>
-
-          <div class="column-full column-half">
-            <div data-view="entries" class="entries">
-              <a href="#" id="showEntryForm" class="new-button"> NEW</a>
-              <ul>
-                <li><a id="showEntriesLink" href="#">Show Entries</a></li>
-
-                <!--                 Commenting out for now in place of Removing the entries
-                <li class="journal-entry">
-                  <div class="entry-content">
-                    <h3 class="entry-title">Image 1</h3>
-                    <p class="entry-notes">Sample Image1 desc.</p>
-                  </div>
-                </li>
-                <li class="journal-entry">
-                  <div class="entry-content">
-                    <h3 class="entry-title">Image 2</h3>
-                    <p class="entry-notes">Sample Image2 desc.</p>
-                  </div>
-                </li>
-                <li class="journal-entry">
-                  <div class="entry-content">
-                    <h3 class="entry-title">Image 3</h3>
-                    <p class="entry-notes">Sample Image3 desc.</p>
-                  </div>
-                </li>-->
-              </ul>
-              <p class="no-entries">No Entries have been recorded</p>
+      <div class="row">
+        <div class="column-full column-half">
+          <div data-view="entries" class="entries hidden">
+            <div class="entries-header">
+              <h1>Entries</h1>
+              <div class="button-container">
+                <a href="#" id="show-entry-form" class="new-button"> NEW</a>
+              </div>
             </div>
-
-            <label for="titleName"><b>Title</b></label>
-            <br />
-            <input type="text" id="titleName" name="titleName" required /><br />
-
-            <label for="photoURL"><b>Photo URL</b></label>
-            <br />
-            <input type="url" id="photoURL" name="photoURL" required />
+            <ul></ul>
+            <p class="no-entries">No Entries have been recorded</p>
           </div>
         </div>
-
-        <div class="row">
-          <div class="column-full">
-            <label for="notes"><b>Notes</b> </label><br />
-            <textarea name="notes" id="notes" required></textarea>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="submit-container">
-            <button class="submit-button" type="submit">Save</button>
-          </div>
-        </div>
-      </form>
-
-      <div data-view="entries" class="entries">
-        <ul>
-          <!-- May need to add this anchor tag
-            <li><a id="showEntriesLink" href="#">Show Entries</a></li>
-          -->
-
-          <!--       Commenting out for now in place of Removing the entries
-          <li class="journal-entry">
-            <div class="entry-content">
-              <h3 class="entry-title">Image 1</h3>
-              <p class="entry-notes">Sample Image1 desc.</p>
-            </div>
-          </li>
-          <li class="journal-entry">
-            <div class="entry-content">
-              <h3 class="entry-title">Image 2</h3>
-              <p class="entry-notes">Sample Image2 desc.</p>
-            </div>
-          </li>
-          <li class="journal-entry">
-            <div class="entry-content">
-              <h3 class="entry-title">Image 3</h3>
-              <p class="entry-notes">Sample Image3 desc.</p>
-            </div>
-          </li>
-           -->
-        </ul>
-        <p class="no-entries">No Entries have been recorded</p>
       </div>
     </main>
     <script src="js/data.js"></script>
