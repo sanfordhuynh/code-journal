@@ -57,6 +57,36 @@ form.addEventListener('submit', function (event) {
   nextEntryId++;
 });
 
+// Add event listen to the UL entries view
+entriesList.addEventListener('click', function (event) {
+  if (event.target.classList.contains('fa-pencil')) {
+    viewSwap('entry-form');
+
+    let clickedEntry;
+
+    const entryId = event.target.closest('li').getAttribute('data-entry-id');
+    for (const entry of data.entries) {
+      if (entry.entryId === parseInt(entryId)) {
+        clickedEntry = entry;
+        break;
+      }
+    }
+
+    if (clickedEntry) {
+      data.editing = clickedEntry;
+
+      document.getElementById('titleName').value = data.editing.title;
+      document.getElementById('photoURL').value = data.editing.photoURL;
+      document.getElementById('notes').value = data.editing.notes;
+
+      document.querySelector('.entry-form').textContent = 'Edit Entry';
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('Entry not found');
+    }
+  }
+});
+
 function renderEntry(entry) {
   const listItem = document.createElement('li');
   listItem.classList.add('journal-entry');
