@@ -35,15 +35,19 @@ form.addEventListener('submit', function (event) {
   const notesInput = document.getElementById('notes').value;
 
   const formData = {
-    entryId: nextEntryId,
+    entryId: data.editing ? data.editing.entryId : nextEntryId,
     title: titleNameInput,
     photoURL: photoURLInputValue,
     notes: notesInput,
   };
 
-  data.entries.unshift(formData);
-  const newEntry = renderEntry(formData);
-  entriesList.prepend(newEntry);
+  if (data.editing === null) {
+    data.entries.unshift(formData);
+    const newEntry = renderEntry(formData);
+    newEntry.setAttribute('data-entry-id', formData.entryId);
+    entriesList.prepend(newEntry);
+  }
+
   viewSwap('entries');
 
   if (data.entries.length > 0) {
