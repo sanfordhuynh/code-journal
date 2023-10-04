@@ -61,6 +61,8 @@ function renderEntry(entry) {
   const listItem = document.createElement('li');
   listItem.classList.add('journal-entry');
 
+  listItem.setAttribute('data-entry-id', entry.entryID);
+
   const entryContent = document.createElement('div');
   entryContent.classList.add('entry-content');
 
@@ -78,6 +80,10 @@ function renderEntry(entry) {
   entryTitle.classList.add('entry-title');
   entryTitle.textContent = entry.title;
 
+  const pencilFontAwesome = document.createElement('i');
+  pencilFontAwesome.classList.add('fas', 'fa-pencil');
+  entryTitle.appendChild(pencilFontAwesome);
+
   const entryNotes = document.createElement('p');
   entryNotes.classList.add('entry-notes');
   entryNotes.textContent = entry.notes;
@@ -85,9 +91,8 @@ function renderEntry(entry) {
   entryTextContainer.appendChild(entryTitle);
   entryTextContainer.appendChild(entryNotes);
 
-  entryContent.appendChild(entryImage);
-  entryContent.appendChild(entryTitle);
-  entryContent.appendChild(entryNotes);
+  entryContent.appendChild(entryImageContainer);
+  entryContent.appendChild(entryTextContainer);
 
   listItem.appendChild(entryContent);
 
