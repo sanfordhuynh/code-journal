@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const placeholderImageURL = '/images/placeholder-image-square.jpg';
 let nextEntryId = data.nextEntryId;
 const form = document.getElementById('form');
@@ -46,6 +47,28 @@ form.addEventListener('submit', function (event) {
     const newEntry = renderEntry(formData);
     newEntry.setAttribute('data-entry-id', formData.entryId);
     entriesList.prepend(newEntry);
+    nextEntryId++;
+    data.nextEntryId = nextEntryId;
+  } else {
+    if (data.editing && data.editing.entryId) {
+      const editedIndex = data.entries.findIndex(
+        (entry) => entry.entryId === data.editing.entryId
+      );
+      data.entries[editedIndex] = formData;
+
+      const updatedEntry = renderEntry(formData);
+      updatedEntry.setAttribute('data-entry-id', formData.entryId);
+
+      const originalEntryElement = document.querySelector(
+        `li[data-entry-id="${formData.entryId}"]`
+      );
+      originalEntryElement.replaceWith(updatedEntry);
+
+      data.editing = null;
+
+      document.querySelector('[data-view="entry-form"] h1').textContent =
+        'New Entry';
+    }
   }
 
   viewSwap('entries');
@@ -58,35 +81,38 @@ form.addEventListener('submit', function (event) {
 
   imagePreview.src = placeholderImageURL;
   form.reset();
-  nextEntryId++;
 });
 
-// Add event listen to the UL entries view
 entriesList.addEventListener('click', function (event) {
   if (event.target.classList.contains('fa-pencil')) {
-    viewSwap('entry-form');
+    event.preventDefault();
 
-    let clickedEntry;
+    const entryListItem = event.target.closest('.journal-entry');
 
-    const entryId = event.target.closest('li').getAttribute('data-entry-id');
-    for (const entry of data.entries) {
-      if (entry.entryId === parseInt(entryId)) {
-        clickedEntry = entry;
-        break;
-      }
-    }
+    // Check if the entryListItem is found
+    if (entryListItem && entryListItem.hasAttribute('data-entry-id')) {
+      const entryId = entryListItem.getAttribute('data-entry-id');
+      const clickedEntry = data.entries.find(
+        (entry) => entry.entryId === parseInt(entryId)
+      );
 
-    if (clickedEntry) {
       data.editing = clickedEntry;
 
       document.getElementById('titleName').value = data.editing.title;
       document.getElementById('photoURL').value = data.editing.photoURL;
       document.getElementById('notes').value = data.editing.notes;
 
-      document.querySelector('.entry-form').textContent = 'Edit Entry';
+      const formTitleElement = document.querySelector(
+        '[data-view="entry-form"] h1'
+      );
+      if (formTitleElement) {
+        formTitleElement.textContent = 'Edit Entry';
+      } else {
+        console.log('Form title element not found.');
+      }
+      viewSwap('entry-form');
     } else {
-      // eslint-disable-next-line no-console
-      console.log('Entry not found');
+      console.log('Clicked entry not found in data.');
     }
   }
 });
@@ -95,7 +121,7 @@ function renderEntry(entry) {
   const listItem = document.createElement('li');
   listItem.classList.add('journal-entry');
 
-  listItem.setAttribute('data-entry-id', entry.entryID);
+  listItem.setAttribute('data-entry-id', entry.entryId);
 
   const entryContent = document.createElement('div');
   entryContent.classList.add('entry-content');
@@ -129,7 +155,6 @@ function renderEntry(entry) {
   entryContent.appendChild(entryTextContainer);
 
   listItem.appendChild(entryContent);
-
   return listItem;
 }
 
