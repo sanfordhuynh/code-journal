@@ -55,6 +55,10 @@ li {
   text-decoration: none;
 }
 
+.notes-container {
+  width: 100%;
+}
+
 .submit-container {
   display: flex;
   justify-content: flex-end;

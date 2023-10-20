@@ -102,6 +102,8 @@ entriesList.addEventListener('click', function (event) {
       document.getElementById('photoURL').value = data.editing.photoURL;
       document.getElementById('notes').value = data.editing.notes;
 
+      imagePreview.src = clickedEntry.photoURL;
+
       const formTitleElement = document.querySelector(
         '[data-view="entry-form"] h1'
       );
