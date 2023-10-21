@@ -39,6 +39,14 @@ li {
   align-items: center;
 }
 
+#delete-entry-button {
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  color: red;
+  text-decoration: underline;
+}
+
 .submit-button {
   background-color: #4c2676;
   color: white;

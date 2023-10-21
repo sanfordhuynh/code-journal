@@ -65,7 +65,7 @@ form.addEventListener('submit', function (event) {
       originalEntryElement.replaceWith(updatedEntry);
 
       data.editing = null;
-
+      document.getElementById('delete-entry-button').style.display = 'none';
       document.querySelector('[data-view="entry-form"] h1').textContent =
         'New Entry';
     }
@@ -101,6 +101,9 @@ entriesList.addEventListener('click', function (event) {
       document.getElementById('titleName').value = data.editing.title;
       document.getElementById('photoURL').value = data.editing.photoURL;
       document.getElementById('notes').value = data.editing.notes;
+
+      // Show 'Delete Entry' button
+      document.getElementById('delete-entry-button').style.display = 'block';
 
       imagePreview.src = clickedEntry.photoURL;
 
