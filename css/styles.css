@@ -55,6 +55,10 @@ li {
   text-decoration: none;
 }
 
+.notes-container {
+  width: 100%;
+}
+
 .submit-container {
   display: flex;
   justify-content: flex-end;
@@ -81,7 +85,15 @@ li {
 }
 
 .entry-text-container {
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.entry-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -118,11 +130,6 @@ li {
     width: 100%;
   }
 
-  .column-half {
-    display: flex;
-    width: 100%;
-  }
-
   .input-container {
     margin-left: 10px;
   }
@@ -156,7 +163,6 @@ li {
   }
 
   .entry-image-container {
-    width: 50%;
     margin-right: 10px;
   }
 
