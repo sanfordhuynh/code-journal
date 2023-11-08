@@ -30,6 +30,10 @@ li {
   padding: 0;
 }
 
+label {
+  white-space: pre;
+}
+
 #show-entries-link {
   text-decoration: none;
   color: white;
@@ -37,6 +41,14 @@ li {
   font-size: larger;
   display: flex;
   align-items: center;
+}
+
+#delete-entry-button {
+  display: none;
+  color: red;
+  text-decoration: underline;
+  border-radius: 5%;
+  margin-right: auto;
 }
 
 .submit-button {
@@ -53,17 +65,6 @@ li {
   border-radius: 15%;
   padding: 10px;
   text-decoration: none;
-}
-
-.notes-container {
-  width: 100%;
-}
-
-.submit-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 70%;
 }
 
 .button-container {
@@ -96,6 +97,43 @@ li {
   align-items: center;
 }
 
+.modal {
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40px 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.notes-container {
+  width: 100%;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 70%;
+}
+
 @media screen and (min-width: 768px) {
   img {
     width: 100%;
@@ -108,13 +146,6 @@ li {
   textarea {
     width: 100%;
     height: 150px;
-  }
-
-  .submit-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
   }
 
   .container {
@@ -168,5 +199,11 @@ li {
 
   .hidden {
     display: none;
+  }
+
+  .submit-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
   }
 }

@@ -5,6 +5,10 @@ const form = document.getElementById('form');
 const entriesList = document.querySelector('.entries ul');
 const photoURLInput = document.getElementById('photoURL');
 const imagePreview = document.getElementById('imagePreview');
+const deleteEntryButton = document.getElementById('delete-entry-button');
+const confirmationModal = document.querySelector('.modal');
+const confirmDeleteButton = document.querySelector('.confirm-delete');
+const cancelDeleteButton = document.querySelector('.cancel-delete');
 
 photoURLInput.addEventListener('input', function () {
   const url = photoURLInput.value;
@@ -30,7 +34,6 @@ if (data.entries.length === 0) {
 form.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  // Get the form input values, then store it into an object value
   const titleNameInput = document.getElementById('titleName').value;
   const photoURLInputValue = document.getElementById('photoURL').value;
   const notesInput = document.getElementById('notes').value;
@@ -64,13 +67,12 @@ form.addEventListener('submit', function (event) {
       );
       originalEntryElement.replaceWith(updatedEntry);
 
-      data.editing = null;
+      document.getElementById('delete-entry-button').style.display = 'none';
 
       document.querySelector('[data-view="entry-form"] h1').textContent =
         'New Entry';
     }
   }
-
   viewSwap('entries');
 
   if (data.entries.length > 0) {
@@ -81,6 +83,10 @@ form.addEventListener('submit', function (event) {
 
   imagePreview.src = placeholderImageURL;
   form.reset();
+
+  document.getElementById('delete-entry-button').style.display = 'none';
+  document.querySelector('[data-view="entry-form"] h1').textContent =
+    'New Entry';
 });
 
 entriesList.addEventListener('click', function (event) {
@@ -89,7 +95,6 @@ entriesList.addEventListener('click', function (event) {
 
     const entryListItem = event.target.closest('.journal-entry');
 
-    // Check if the entryListItem is found
     if (entryListItem && entryListItem.hasAttribute('data-entry-id')) {
       const entryId = entryListItem.getAttribute('data-entry-id');
       const clickedEntry = data.entries.find(
@@ -103,6 +108,8 @@ entriesList.addEventListener('click', function (event) {
       document.getElementById('notes').value = data.editing.notes;
 
       imagePreview.src = clickedEntry.photoURL;
+
+      document.getElementById('delete-entry-button').style.display = 'block';
 
       const formTitleElement = document.querySelector(
         '[data-view="entry-form"] h1'
@@ -195,4 +202,44 @@ showEntriesLink.addEventListener('click', function (event) {
 showEntryFormLink.addEventListener('click', function (event) {
   event.preventDefault();
   viewSwap('entry-form');
+});
+
+deleteEntryButton.addEventListener('click', function () {
+  confirmationModal.style.display = 'flex';
+});
+
+confirmDeleteButton.addEventListener('click', function () {
+  if (data.editing && data.editing.entryId) {
+    const entryIdToDelete = data.editing.entryId;
+    const entryIndex = data.entries.findIndex(
+      (entry) => entry.entryId === entryIdToDelete
+    );
+
+    if (entryIndex !== -1) {
+      data.entries.splice(entryIndex, 1);
+      const entryListItemToDelete = document.querySelector(
+        `li[data-entry-id="${entryIdToDelete}"]`
+      );
+
+      if (entryListItemToDelete) {
+        entryListItemToDelete.remove();
+      }
+
+      data.editing = null;
+
+      toggleNoEntries(data.entries.length === 0);
+
+      confirmationModal.style.display = 'none';
+
+      viewSwap('entries');
+    } else {
+      console.error('Entry not found in data.entries.');
+    }
+  } else {
+    console.error('Invalid object');
+  }
+});
+
+cancelDeleteButton.addEventListener('click', function () {
+  confirmationModal.style.display = 'none';
 });
